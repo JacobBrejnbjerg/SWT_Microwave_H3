@@ -18,7 +18,7 @@ namespace Microwave.Classes.Boundary
 
         public void TurnOn(int power)
         {
-            if (power < 1 || MaxPower <= power)
+            if (power < 1 || MaxPower < power)
             {
                 throw new ArgumentOutOfRangeException("power", power, $"Must be between 1 and {MaxPower} (incl.)");
             }
@@ -28,7 +28,7 @@ namespace Microwave.Classes.Boundary
                 throw new ApplicationException("PowerTube.TurnOn: is already on");
             }
 
-            myOutput.OutputLine($"PowerTube works with {power}");
+            myOutput.OutputLine($"PowerTube is running with {power}");
             IsOn = true;
         }
 
