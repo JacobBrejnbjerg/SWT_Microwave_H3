@@ -1,10 +1,9 @@
-﻿using System;
-using System.Threading;
-using Microwave.Classes.Boundary;
+﻿using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 using Microwave.Classes.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
+using System;
 
 namespace Microwave.Test.Integration
 {
@@ -23,6 +22,7 @@ namespace Microwave.Test.Integration
         private CookController cooker;
 
         private IPowerTube powerTube;
+        private readonly int _maxPower = 700;
         private ITimer timer;
         private IOutput output;
 
@@ -34,14 +34,15 @@ namespace Microwave.Test.Integration
             timeButton = new Button();
             startCancelButton = new Button();
 
-            powerTube = Substitute.For<IPowerTube>();
             timer = Substitute.For<ITimer>();
             output = Substitute.For<IOutput>();
+            powerTube = Substitute.For<IPowerTube>();
 
             light = new Light(output);
             display = new Display(output);
 
             cooker = new CookController(timer, display, powerTube);
+            cooker.MaxPower.Returns(_maxPower); // Set max power to 700W for substituted interface call
 
             ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
             cooker.UI = ui;
@@ -193,7 +194,7 @@ namespace Microwave.Test.Integration
         [Test]
         public void UI_CookController_StartCooking_700W()
         {
-            for (int p = 50; p <= 700; p += 50)
+            for (int p = 50; p <= _maxPower; p += 50)
             {
                 powerButton.Press();
             }

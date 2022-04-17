@@ -1,7 +1,6 @@
 ﻿using Microwave.Classes.Boundary;
 using Microwave.Classes.Interfaces;
 using NSubstitute;
-using NSubstitute.Core.Arguments;
 using NUnit.Framework;
 
 namespace Microwave.Test.Unit
@@ -11,12 +10,13 @@ namespace Microwave.Test.Unit
     {
         private PowerTube uut;
         private IOutput output;
+        private readonly int _maxPower = 700;
 
         [SetUp]
         public void Setup()
         {
             output = Substitute.For<IOutput>();
-            uut = new PowerTube(output);
+            uut = new PowerTube(output, _maxPower);
         }
 
         [TestCase(1)]
