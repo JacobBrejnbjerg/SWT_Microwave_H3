@@ -1,5 +1,4 @@
-﻿using System;
-using Microwave.Classes.Boundary;
+﻿using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 
 namespace Microwave.App
@@ -18,7 +17,7 @@ namespace Microwave.App
 
             Display display = new Display(output);
 
-            PowerTube powerTube = new PowerTube(output);
+            PowerTube powerTube = new PowerTube(output, 1000); // Setting max power to 1000W
 
             Light light = new Light(output);
 

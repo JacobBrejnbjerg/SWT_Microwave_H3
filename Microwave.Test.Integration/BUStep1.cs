@@ -1,9 +1,9 @@
-﻿using System.Threading;
-using Microwave.Classes.Boundary;
+﻿using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 using Microwave.Classes.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
+using System.Threading;
 using Timer = Microwave.Classes.Boundary.Timer;
 
 namespace Microwave.Test.Integration
@@ -16,6 +16,7 @@ namespace Microwave.Test.Integration
         private Display display;
         private PowerTube powerTube;
         private CookController cooker;
+        private readonly int _maxPower = 700;
 
         private IUserInterface ui;
 
@@ -26,7 +27,7 @@ namespace Microwave.Test.Integration
 
             timer = new Timer();
             display = new Display(output);
-            powerTube = new PowerTube(output);
+            powerTube = new PowerTube(output, _maxPower);
 
             ui = Substitute.For<IUserInterface>();
 
