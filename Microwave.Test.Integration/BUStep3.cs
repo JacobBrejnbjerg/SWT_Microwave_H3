@@ -10,6 +10,7 @@ namespace Microwave.Test.Integration
     public class BUStep3
     {
         private IOutput output;
+        private IBuzzer buzzer;
 
         private Timer timer;
         private Display display;
@@ -30,6 +31,7 @@ namespace Microwave.Test.Integration
         public void Setup()
         {
             output = Substitute.For<IOutput>();
+            buzzer = Substitute.For<IBuzzer>();
 
             powerButton = new Button();
             timeButton = new Button();
@@ -43,8 +45,8 @@ namespace Microwave.Test.Integration
 
             light = new Light(output);
 
-            cooker = new CookController(timer, display, powerTube);
-
+            cooker = new CookController(timer, display, powerTube, buzzer);
+            
             ui = new UserInterface(
                 powerButton, timeButton, startCancelButton,
                 door,

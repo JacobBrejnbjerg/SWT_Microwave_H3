@@ -28,7 +28,7 @@ namespace Microwave.Test.Unit
 
             uut = new CookController(timer, display, powerTube, ui, buzzer);
         }
-        
+
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(30)]
@@ -124,7 +124,7 @@ namespace Microwave.Test.Unit
         {
             // Set MaxPower for PowerTube to 500
             powerTube.MaxPower.Returns(500);
-            uut = new CookController(timer, display, powerTube, ui);
+            uut = new CookController(timer, display, powerTube, ui, buzzer);
 
             Assert.That(uut.MaxPower, Is.EqualTo(500));
         }
