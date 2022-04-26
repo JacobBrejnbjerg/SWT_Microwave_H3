@@ -11,6 +11,7 @@ namespace Microwave.Test.Integration
     [TestFixture]
     public class BUStep1
     {
+        private IBuzzer buzzer;
         private IOutput output;
         private Timer timer;
         private Display display;
@@ -23,6 +24,7 @@ namespace Microwave.Test.Integration
         public void Setup()
         {
             output = Substitute.For<IOutput>();
+            buzzer = Substitute.For<IBuzzer>();
 
             timer = new Timer();
             display = new Display(output);
@@ -30,7 +32,7 @@ namespace Microwave.Test.Integration
 
             ui = Substitute.For<IUserInterface>();
 
-            cooker = new CookController(timer, display, powerTube, ui);
+            cooker = new CookController(timer, display, powerTube, ui, buzzer);
         }
 
         #region CookController_PowerTube

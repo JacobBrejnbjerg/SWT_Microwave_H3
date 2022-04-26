@@ -28,6 +28,7 @@ namespace Microwave.Test.Integration
         private Timer timer;
 
         private IOutput output;
+        private IBuzzer buzzer;
 
         [SetUp]
         public void Setup()
@@ -38,6 +39,7 @@ namespace Microwave.Test.Integration
             startCancelButton = new Button();
 
             output = Substitute.For<IOutput>();
+            buzzer = Substitute.For<IBuzzer>();
 
             light = new Light(output);
             display = new Display(output);
@@ -45,7 +47,7 @@ namespace Microwave.Test.Integration
             timer = new Timer();
 
 
-            cooker = new CookController(timer, display, powerTube);
+            cooker = new CookController(timer, display, powerTube, buzzer);
 
             ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
             cooker.UI = ui;
@@ -148,6 +150,7 @@ namespace Microwave.Test.Integration
             startCancelButton = new Button();
 
             output = Substitute.For<IOutput>();
+            buzzer = Substitute.For<IBuzzer>();
 
             light = new Light(output);
             display = new Display(output);
@@ -155,7 +158,7 @@ namespace Microwave.Test.Integration
             var faketimer = Substitute.For<ITimer>();
 
             // Make a new cooker, with the 
-            cooker = new CookController(faketimer, display, powerTube);
+            cooker = new CookController(faketimer, display, powerTube, buzzer);
             // Then we must make a new UI
             ui = new UserInterface(
                 powerButton, timeButton, startCancelButton,
