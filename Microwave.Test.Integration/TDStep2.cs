@@ -44,7 +44,6 @@ namespace Microwave.Test.Integration
             display = new Display(output);
 
             cooker = new CookController(timer, display, powerTube, buzzer);
-            cooker = new CookController(timer, display, powerTube);
             cooker.MaxPower.Returns(_maxPower); // Set max power to 700W for substituted interface call
 
             ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
