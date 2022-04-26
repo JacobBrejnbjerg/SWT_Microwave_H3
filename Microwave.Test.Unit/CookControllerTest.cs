@@ -1,8 +1,8 @@
-﻿using System;
-using Microwave.Classes.Controllers;
+﻿using Microwave.Classes.Controllers;
 using Microwave.Classes.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
+using System;
 
 namespace Microwave.Test.Unit
 {
@@ -83,5 +83,14 @@ namespace Microwave.Test.Unit
             powerTube.Received().TurnOff();
         }
 
+        [Test]
+        public void Cooking_PowerTube_ReadsCorrectMaxPower()
+        {
+            // Set MaxPower for PowerTube to 500
+            powerTube.MaxPower.Returns(500);
+            uut = new CookController(timer, display, powerTube, ui);
+
+            Assert.That(uut.MaxPower, Is.EqualTo(500));
+        }
     }
 }
