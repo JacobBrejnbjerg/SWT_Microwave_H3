@@ -26,6 +26,19 @@ namespace Microwave.Test.Unit
 
             uut = new CookController(timer, display, powerTube, ui);
         }
+        
+        [TestCase(0,30)]
+        [TestCase(1, 0)]
+        [TestCase(1, 30)]
+        [TestCase(2, 30)]
+        public void WhileCooking_TimeAdded_CallsTimerAddTime(int min, int sec)
+        {
+            uut.StartCooking(50, 60);
+            uut.AddTime(min, sec);
+
+            timer.Received(1).AddTime(min * 60 + sec);
+        }
+
 
         [Test]
         public void StartCooking_ValidParameters_TimerStarted()

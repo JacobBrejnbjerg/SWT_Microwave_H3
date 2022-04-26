@@ -147,5 +147,29 @@ namespace Microwave.Test.Unit
 
             Assert.That(uut.TimeRemaining, Is.EqualTo(5-ticks*1));
         }
+
+        [TestCase(1, 0)]
+        [TestCase(2, 30)]
+        [TestCase(3, 60)]
+        [TestCase(4, 90)]
+        public void Tick_Started_TimeRemaingAfterTimerPressCorrect(int ticks, int timeSeconds)
+        {
+            ManualResetEvent pause = new ManualResetEvent(false);
+            int ticksGone = 0;
+            uut.TimerTick += (sender, args) =>
+            {
+                ticksGone++;
+                if (ticksGone >= ticks)
+                    pause.Set();
+            };
+            uut.Start(5);
+            
+            // wait for ticks, only a little longer
+            pause.WaitOne(ticks * 1000 + 100);
+
+            uut.AddTime(timeSeconds);
+
+            Assert.That(uut.TimeRemaining, Is.EqualTo(5 - ticks * 1 + timeSeconds));
+        }
     }
 }

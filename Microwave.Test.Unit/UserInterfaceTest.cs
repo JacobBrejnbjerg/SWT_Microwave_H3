@@ -41,6 +41,24 @@ namespace Microwave.Test.Unit
                 light,
                 cooker);
         }
+        [Test]
+        public void Cooking_TimerButtonPressed_AddTimeCalled()
+        {
+            // set state to SETPOWER
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            // set state to SETTIME
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            // set state to COOKING
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            // Add 30 seconds to timer by pressing the timer button during cooking
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            // expect AddTime to be called in cooker
+            cooker.Received(1).AddTime(0,30);
+        }
 
         [Test]
         public void Ready_DoorOpen_LightOn()
