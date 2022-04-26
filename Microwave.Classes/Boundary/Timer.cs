@@ -28,6 +28,11 @@ namespace Microwave.Classes.Boundary
             timer.Enabled = true;
         }
 
+        public void AddTime(int seconds)
+        {
+            TimeRemaining += seconds;
+        }
+
         public void Stop()
         {
             timer.Enabled = false;

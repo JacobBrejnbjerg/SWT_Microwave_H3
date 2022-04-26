@@ -6,5 +6,6 @@
 
         void StartCooking(int power, int time);
         void Stop();
+        void AddTime(int minutes, int seconds);
     }
 }

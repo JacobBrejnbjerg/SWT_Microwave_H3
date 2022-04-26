@@ -43,6 +43,8 @@ namespace Microwave.App
             System.Console.WriteLine("When you press enter, the program will stop");
             // Wait for input
 
+             timeButton.Press();  // comment this in to add 30 seconds to the timer.
+
             System.Console.ReadLine();
         }
     }

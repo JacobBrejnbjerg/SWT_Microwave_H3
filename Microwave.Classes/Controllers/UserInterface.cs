@@ -18,6 +18,7 @@ namespace Microwave.Classes.Controllers
 
         private int powerLevel = 50;
         private int time = 1;
+        
 
         public UserInterface(
             IButton powerButton,
@@ -73,6 +74,9 @@ namespace Microwave.Classes.Controllers
                 case States.SETTIME:
                     time += 1;
                     myDisplay.ShowTime(time, 0);
+                    break;
+                case States.COOKING:
+                    myCooker.AddTime(0, 30); 
                     break;
             }
         }
