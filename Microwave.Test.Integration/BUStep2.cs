@@ -1,10 +1,9 @@
-﻿using System;
-using System.Threading;
-using Microwave.Classes.Boundary;
+﻿using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 using Microwave.Classes.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
+using System.Threading;
 using Timer = Microwave.Classes.Boundary.Timer;
 
 namespace Microwave.Test.Integration
@@ -18,6 +17,7 @@ namespace Microwave.Test.Integration
         private Timer timer;
         private Display display;
         private PowerTube powerTube;
+        private readonly int _maxPower = 700;
         private CookController cooker;
 
         private UserInterface ui;
@@ -43,7 +43,7 @@ namespace Microwave.Test.Integration
 
             timer = new Timer();
             display = new Display(output);
-            powerTube = new PowerTube(output);
+            powerTube = new PowerTube(output, _maxPower);
 
             light = new Light(output);
 
@@ -52,7 +52,7 @@ namespace Microwave.Test.Integration
 
             ui = new UserInterface(
                 powerButton, timeButton, startCancelButton,
-                door, 
+                door,
                 display, light, cooker);
 
             cooker.UI = ui;
@@ -122,7 +122,7 @@ namespace Microwave.Test.Integration
             startCancelButton.Pressed += Raise.Event();
 
             // Should start cooking 
-            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("PowerTube works with 50")));
+            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("PowerTube is running with 50")));
 
         }
 
@@ -136,14 +136,14 @@ namespace Microwave.Test.Integration
             startCancelButton.Pressed += Raise.Event();
 
             // Should start cooking 
-            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("PowerTube works with 150")));
+            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("PowerTube is running with 150")));
 
         }
 
         [Test]
-        public void UserInterface_CookController_StartCooking_700W()
+        public void UserInterface_CookController_StartCooking_MaxPowerW()
         {
-            for (int p = 50; p <= 700; p += 50)
+            for (int p = 50; p <= _maxPower; p += 50)
             {
                 powerButton.Pressed += Raise.Event();
             }
@@ -152,7 +152,7 @@ namespace Microwave.Test.Integration
             startCancelButton.Pressed += Raise.Event();
 
             // Should start cooking 
-            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("PowerTube works with 700")));
+            output.Received().OutputLine(Arg.Is<string>(str => str.Contains($"PowerTube is running with {_maxPower}")));
         }
 
         [Test]

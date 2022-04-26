@@ -1,5 +1,5 @@
-﻿using System;
-using Microwave.Classes.Interfaces;
+﻿using Microwave.Classes.Interfaces;
+using System;
 
 namespace Microwave.Classes.Controllers
 {
@@ -8,6 +8,7 @@ namespace Microwave.Classes.Controllers
         // Since there is a 2-way association, this cannot be set until the UI object has been created
         // It also demonstrates property dependency injection
         public IUserInterface UI { set; private get; }
+        public int MaxPower { get { return myPowerTube.MaxPower; } } // Return the max power of the powertube
 
         private bool isCooking = false;
 

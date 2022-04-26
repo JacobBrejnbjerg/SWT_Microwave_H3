@@ -1,11 +1,10 @@
-﻿using System;
-using System.Threading;
-using Microwave.Classes.Boundary;
+﻿using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 using Microwave.Classes.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
-using NUnit.Framework.Internal.Commands;
+using System;
+using System.Threading;
 using Timer = Microwave.Classes.Boundary.Timer;
 
 namespace Microwave.Test.Integration
@@ -25,6 +24,7 @@ namespace Microwave.Test.Integration
         private CookController cooker;
 
         private PowerTube powerTube;
+        private readonly int _maxPower = 700;
         private Timer timer;
 
         private IOutput output;
@@ -43,7 +43,7 @@ namespace Microwave.Test.Integration
 
             light = new Light(output);
             display = new Display(output);
-            powerTube = new PowerTube(output);
+            powerTube = new PowerTube(output, _maxPower);
             timer = new Timer();
 
 
@@ -63,7 +63,7 @@ namespace Microwave.Test.Integration
             startCancelButton.Press();
 
             // Should now be started with 50W
-            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("50") && str.Contains("PowerTube works")));
+            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("50") && str.Contains("PowerTube is running with")));
         }
 
         [Test]
@@ -76,7 +76,7 @@ namespace Microwave.Test.Integration
             startCancelButton.Press();
 
             // Should now be started with 150W
-            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("150") && str.Contains("PowerTube works")));
+            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("150") && str.Contains("PowerTube is running with")));
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace Microwave.Test.Integration
             startCancelButton.Press();
 
             // Should now be started with 700W
-            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("700") && str.Contains("PowerTube works")));
+            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("700") && str.Contains("PowerTube is running with")));
         }
 
         [Test]
@@ -154,7 +154,7 @@ namespace Microwave.Test.Integration
 
             light = new Light(output);
             display = new Display(output);
-            powerTube = new PowerTube(output);
+            powerTube = new PowerTube(output, _maxPower);
             var faketimer = Substitute.For<ITimer>();
 
             // Make a new cooker, with the 
