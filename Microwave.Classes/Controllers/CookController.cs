@@ -50,9 +50,11 @@ namespace Microwave.Classes.Controllers
             if (seconds < 0)
             { 
                 throw new ArgumentOutOfRangeException(); 
-            } 
-            
-            myTimer.AddTime(seconds);
+            }
+            else
+            {
+                myTimer.AddTime(seconds);
+            }
         }
 
         public void Stop()
