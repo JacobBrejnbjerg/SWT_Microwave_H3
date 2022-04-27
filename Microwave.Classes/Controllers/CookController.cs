@@ -45,10 +45,14 @@ namespace Microwave.Classes.Controllers
             isCooking = true;
         }
 
-        public void AddTime(int minutes, int seconds)
+        public void AddTime(int seconds)
         {
-            int totalSeconds = minutes * 60 + seconds;
-            myTimer.AddTime(totalSeconds);
+            if (seconds < 0)
+            { 
+                throw new ArgumentOutOfRangeException(); 
+            } 
+            
+            myTimer.AddTime(seconds);
         }
 
         public void Stop()
