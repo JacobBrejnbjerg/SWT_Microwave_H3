@@ -41,7 +41,8 @@ namespace Microwave.Test.Unit
                 light,
                 cooker);
         }
-        
+
+        [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(3)]
