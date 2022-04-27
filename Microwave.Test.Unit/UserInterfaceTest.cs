@@ -57,7 +57,7 @@ namespace Microwave.Test.Unit
             timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
 
             // expect AddTime to be called in cooker
-            cooker.Received(1).AddTime(0,30);
+            cooker.Received(1).AddTime(30);
         }
 
         [Test]
