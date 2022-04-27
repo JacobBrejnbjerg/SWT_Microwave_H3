@@ -30,7 +30,14 @@ namespace Microwave.Classes.Boundary
 
         public void AddTime(int seconds)
         {
-            TimeRemaining += seconds;
+            if (seconds < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            else
+            {
+                TimeRemaining += seconds;
+            }
         }
 
         public void Stop()

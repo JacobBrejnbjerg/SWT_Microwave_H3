@@ -46,9 +46,8 @@ namespace Microwave.Test.Unit
         public void WhileCooking_NegativeTimeAdded_ThrowsException(int sec)
         {
             uut.StartCooking(50, 60);
-            uut.AddTime(sec);
 
-            Assert.Throws<ArgumentException>(() => uut.AddTime(sec));
+            Assert.Throws<ArgumentOutOfRangeException>(() => uut.AddTime(sec));
         }
 
 

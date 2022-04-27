@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using NUnit.Framework;
 using Timer = Microwave.Classes.Boundary.Timer;
 
@@ -170,6 +171,16 @@ namespace Microwave.Test.Unit
             uut.AddTime(timeSeconds);
 
             Assert.That(uut.TimeRemaining, Is.EqualTo(5 - ticks * 1 + timeSeconds));
+        }
+
+        [TestCase(-1)]
+        [TestCase(-2)]
+        [TestCase(-60)]
+        [TestCase(-90)]
+        public void AddTime_NegativeValue_ThrowsException(int secs)
+        {
+            uut.Start(5);
+            Assert.Throws<ArgumentOutOfRangeException>(() => uut.AddTime(secs));
         }
     }
 }
