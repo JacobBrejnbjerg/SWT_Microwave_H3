@@ -35,6 +35,7 @@ namespace Microwave.Test.Integration
             timeButton = new Button();
             startCancelButton = new Button();
 
+            powerTube = Substitute.For<IPowerTube>();
             timer = Substitute.For<ITimer>();
             output = Substitute.For<IOutput>();
             buzzer = Substitute.For<IBuzzer>();
