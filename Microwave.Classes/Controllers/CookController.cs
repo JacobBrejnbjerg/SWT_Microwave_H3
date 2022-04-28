@@ -45,6 +45,18 @@ namespace Microwave.Classes.Controllers
             isCooking = true;
         }
 
+        public void AddTime(int seconds)
+        {
+            if (seconds < 0)
+            { 
+                throw new ArgumentOutOfRangeException(); 
+            }
+            else
+            {
+                myTimer.AddTime(seconds);
+            }
+        }
+
         public void Stop()
         {
             isCooking = false;

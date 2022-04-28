@@ -26,6 +26,30 @@ namespace Microwave.Test.Unit
 
             uut = new CookController(timer, display, powerTube, ui);
         }
+        
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(30)]
+        [TestCase(120)]
+        public void WhileCooking_PositiveTimeAdded_CallsTimerAddTime(int sec)
+        {
+            uut.StartCooking(50, 60);
+            uut.AddTime(sec);
+
+            timer.Received(1).AddTime(sec);
+        }
+
+        [TestCase(-1)]
+        [TestCase(-2)]
+        [TestCase(-30)]
+        [TestCase(-120)]
+        public void WhileCooking_NegativeTimeAdded_ThrowsException(int sec)
+        {
+            uut.StartCooking(50, 60);
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => uut.AddTime(sec));
+        }
+
 
         [Test]
         public void StartCooking_ValidParameters_TimerStarted()
