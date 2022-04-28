@@ -25,6 +25,7 @@ namespace Microwave.Test.Integration
         private readonly int _maxPower = 700;
         private ITimer timer;
         private IOutput output;
+        private IBuzzer buzzer;
 
         [SetUp]
         public void Setup()
@@ -34,16 +35,17 @@ namespace Microwave.Test.Integration
             timeButton = new Button();
             startCancelButton = new Button();
 
+            powerTube = Substitute.For<IPowerTube>();
             timer = Substitute.For<ITimer>();
             output = Substitute.For<IOutput>();
-            powerTube = Substitute.For<IPowerTube>();
+            buzzer = Substitute.For<IBuzzer>();
 
             light = new Light(output);
             display = new Display(output);
 
-            cooker = new CookController(timer, display, powerTube);
+            cooker = new CookController(timer, display, powerTube, buzzer);
             cooker.MaxPower.Returns(_maxPower); // Set max power to 700W for substituted interface call
-
+            
             ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
             cooker.UI = ui;
         }
